@@ -1,69 +1,31 @@
 module.exports = function check(str, bracketsConfig) {
 
-  /* let brackets = bracketsConfig.flat().join('') //приводит заданый массив к виду, если он, например двумерный, к одномерному виду
-    let stack = [];
-
-    for (let bracket of str) { //перебор строки по элементам
-        let index = brackets.indexOf(bracket); //ввоод переменной индекса для массива brackets
-        if (index % 2 === 0) { //если индекс четный, те 0, 2, 4, 6..., что соответсвует отрывающим скобкам из массива bracketsConfig
-            bracket === brackets[index + 1] && stack[stack.length - 1] === index ? //если открывающая скобка равна заакрывающей из конфиги
-                stack.pop() : stack.push(index) // если верно, то удалить последний элемент массива stack  и вывести его, если не верное, добавить в конец stack индекс элемента, который не совпадает 
-
-        } else if (stack.pop() !== index - 1) return false;// если последний элемент (число, индекс) stack не равен 
-
-    }
-
-
-    return stack.length === 0;} */
-
-    let brackets = bracketsConfig.flat().join('') //приводит заданый массив к виду, если он, например двумерный, к одномерному виду
-    let stack = [];
-    
-
-    for (let bracket of str) { //перебор строки по элементам
-        let index = brackets.indexOf(bracket); //ввод переменной индекса для массива brackets
-        if (index % 2 === 0) { //если индекс четный, те 0, 2, 4, 6..., что соответсвует отрывающим скобкам из массива bracketsConfig
-          stack.push(index)}
-          else if (index % 2 !== 0) {
-          stack.length !== 0 && stack[stack.length - 1] === index - 1 ? stack.pop() : stack.push(index)
-            
-         /*  stack.slice[-1];*/
-        /* if (stack.length === 0) {
-              return true
-         }*/
+  let arrStr = []
+  let arrArr = []
+  let arrAll = []
+  let stack = [];
+  //Создаем обьект - ключ(закрывающая):значение(открывающая)
+  let brackets = { [')'] : '(', ['}'] : '{', [']'] : '[', ['|'] : '|', ['2'] : '1', ['4'] : '3', ['6'] : '5', ['7'] : '7', ['8'] : '8'}
+  
+  //Входной массив - убираем подмассивы и обьеденяем все в один массив
+  arrArr = bracketsConfig.flat()
+  //Входная строка - разбиваем строку на элементы и ложим в массив
+  arrStr = str.split('')
+  //Обьеденяем все входные данные в один массив
+  arrAll = [...arrStr, ...arrArr]
+  
+      for(let i = 0; i < arrAll.length; i++) {
+  //Элемент массива
+      let iarrAll = arrAll[i];
+  //Верхний элемент в стэке
+      let topElStack = stack[stack.length - 1];
+      //Если открывающей скобке подходит последняя добавленная скобка в стэк, то удаляем закрывающую скобку
+        if(brackets[iarrAll] === topElStack && stack.length !== 0) {
+          stack.pop();
+        } else { //иначе добавляем закрывающую скобку в стэк
+          stack.push(iarrAll)
           }
-    }
-
-    
-  return stack.length === 0;
   }
-
-
-    /*
-
-    const checkIsBalanced = (expression) => {
-      // Инициализация стека
-      const stack = [];
-      // Проходим по каждому символу в строке
-      for (const symbol of expression) {
-        // Смотрим, открывающий или закрывающий
-        // Если символ открывающий
-        if (symbol === '(') {
-          // Добавляем его в стек
-          stack.push(symbol);
-        // Если символ закрывающий
-        } else if (symbol === ')') {
-          // Достаем из стека последний элемент
-          // Если стек пуст, значит для закрывающего не нашлось открывающего
-          // Значит баланса нет, возвращаем false
-          if (!stack.pop()) {
-            return false;
-          }
-        }
-      }
-    
-      // Проверяем, что стек пуст
-      // Если в стеке остались элементы, то не все открывающие скобки закрыты,
-      // а значит баланса нет
-      return stack.length === 0;
-    };*/
+  //Если в стэке что-то есть -false, если ничего нет -true
+    return stack.length === 0;
+  }
