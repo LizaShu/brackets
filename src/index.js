@@ -27,14 +27,14 @@ module.exports = function check(str, bracketsConfig) {
           else if (index % 2 !== 0) {
             stack.pop()
          /*  stack.slice[-1];*/
-           /* if (!stack.pop()) {
-              return false;*/
-            }
-          }
-          
+         
+          } else if (stack.length == 0) {
+              return true
+         }
+    }
 
     
-  return stack.length === 0;
+  return stack.length == 0;
   }
 
 
