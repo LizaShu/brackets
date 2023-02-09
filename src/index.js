@@ -25,16 +25,17 @@ module.exports = function check(str, bracketsConfig) {
         if (index % 2 === 0) { //если индекс четный, те 0, 2, 4, 6..., что соответсвует отрывающим скобкам из массива bracketsConfig
           stack.push(index)}
           else if (index % 2 !== 0) {
-            stack.pop()
+          stack.length !== 0 && stack[stack.length - 1] === index - 1 ? stack.pop() : stack.push(index)
+            
          /*  stack.slice[-1];*/
-         
-          } else if (stack.length == 0) {
+        /* if (stack.length === 0) {
               return true
-         }
+         }*/
+          }
     }
 
     
-  return stack.length == 0;
+  return stack.length === 0;
   }
 
 
